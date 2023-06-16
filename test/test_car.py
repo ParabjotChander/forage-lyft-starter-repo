@@ -1,21 +1,17 @@
 import unittest
 from datetime import datetime
 
-# from car import Car
-# from serviceable import Serviceable
-# from carFactory import CarFactory
-# from utils import add_years_to_date
-
-from battery.Battery import Battery
 from battery.NubbinBattery import NubbinBattery
 from battery.SpindlerBattery import SpindlerBattery
 
-from engine.Engine import Engine
 from engine.capulet_engine import CapuletEngine
 from engine.sternman_engine import SternmanEngine
 from engine.willoughby_engine import WilloughbyEngine
 
-class testingBatteryAndEngine(unittest.TestCase):
+from tires.carrigantires import CarriganTires
+from tires.octoprimetires import OctoprimeTires
+
+class testingBatteryEngineTires(unittest.TestCase):
     
     def nubbinBatteryTest1(self):
         today = datetime.today().date()
@@ -74,6 +70,26 @@ class testingBatteryAndEngine(unittest.TestCase):
         warninglight = False
         se = SternmanEngine(warninglight)
         self.assertFalse(se.needs_service())
+
+    def carriganTiresTest1(self):
+        tireSensors = [0,0,0,0]
+        tire = CarriganTires(tireSensors)
+        self.assertFalse(tire.needs_service())
+
+    def carriganTiresTest2(self):
+        tireSensors = [0.9,0.6,0.7,0]
+        tire = CarriganTires(tireSensors)
+        self.assertTrue(tire.needs_service())
+
+    def octoprimeTiresTest1(self):
+        tireSensors = [0.7, 0.7, 0.7, 0]
+        tire = OctoprimeTires(tireSensors)
+        self.assertFalse(tire.needs_service())
+
+    def octoprimeTiresTest2(self):
+        tireSensors = [1, 1, 1, 0]
+        tire = OctoprimeTires(tireSensors)
+        self.assertTrue(tire.needs_service())
 
 if __name__ == '__main__':
     unittest.main()    
